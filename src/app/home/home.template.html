@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="center">
+        <h1>Lets guess the <span class="label-info">number</span> {{homeCtrl.state._secretNumber}}</h1>
+        <form>
+            <div class="input-group input-group-lg">
+        <span class="input-group-addon label-success">
+            <b>{{homeCtrl.state.moreThan}}</b>
+            <div class="tooltip hidden-sm hidden-xs">More than</div>
+        </span>
+        <input id="guess-value" type="number" class="form-control text-center" ng-disabled="!homeCtrl.state">
+        <span class="input-group-addon label-danger">
+            <b>{{homeCtrl.state.lessThan}}</b>
+            <div class="tooltip tooltip-right hidden-sm hidden-xs">Less than</div>
+        </span>
+            </div>
+            <button ng-show="homeCtrl.state"
+                    type="submit"
+                    class="btn btn-lg btn-group-justified btn-primary"
+                    ng-click="homeCtrl.submitHandler($event)"
+            >Submit</button>
+            <button ng-show="!homeCtrl.state"
+                    type="submit"
+                    class="btn btn-lg btn-group-justified btn-success"
+                    ng-click="homeCtrl.startGameHandler($event)"
+            >Start Game</button>
+        </form>
+    </div>
+</div>
+<div class="row" ng-show="homeCtrl.state">
+    <div class="panel panel-info">
+        <div class="panel-heading"><h3 class="panel-title">Guess Hystory</h3></div>
+        <div class="panel-body">
+            <timeline>
+                <timeline-event ng-repeat="event in homeCtrl.state.historyGuess track by event.id" side="right">
+                    <timeline-badge class="{{event.badgeClass}}">
+                        <i class="glyphicon {{event.badgeIconClass}}"></i>
+                    </timeline-badge>
+                    <timeline-panel class="{{event.badgeClass}}">
+                        <timeline-heading>
+                            <h4>{{event.title}}</h4>
+                        </timeline-heading>
+                        <p>{{event.content}}</p>
+                    </timeline-panel>
+                </timeline-event>
+            </timeline>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="homeCtrl.showStatistics">
+    <div class="well well-lg">
+        <h4>Congratulation! You won!</h4>
+        <h5>Statistics:</h5>
+        Total Attempts: {{homeCtrl.prevSate.attempts}} <br/>
+        Total Time: {{homeCtrl.getPrevGameTime()}} s. <br/>
+    </div>
+</div>
+

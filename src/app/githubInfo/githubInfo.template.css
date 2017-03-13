@@ -1,0 +1,8 @@
+.commit {
+    padding: 5px 0 5px 0;
+}
+
+.commit .image img {
+    width: 48px;
+    height: 48px;
+}

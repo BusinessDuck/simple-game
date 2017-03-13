@@ -1,0 +1,15 @@
+<div>
+    <h1 class="center">
+        <a href="{{ infoCtrl.githubUrl }}">angular-webpack-quickstart</a>
+    </h1>
+    <p>
+        <h2>{{ infoCtrl.description }}</h2>
+        <h3>Latest commits:</h3>
+        <div ng-repeat="element in infoCtrl.commits">
+            <commit
+                avatar="element.author.avatar_url"
+                date="element.commit.author.date"
+                message="element.commit.message">
+        </div>
+    </p>
+</div>
