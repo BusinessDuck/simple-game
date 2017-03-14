@@ -45,11 +45,11 @@ export default class HomeController {
         this.state = Object.assign({}, this.defaultState);
         this.state._secretNumber = getRandomInt(0, 999);
         this.state.timeStart = performance.now();
+        delete this.prevSate;
     }
 
     submitHandler(e) {
         let currentNumber = parseInt(this.getTargetInput().val());
-        console.log(this.getTargetInput().val());
         if (!currentNumber) {
             return;
         }
