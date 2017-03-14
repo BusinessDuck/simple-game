@@ -26,6 +26,7 @@
         </form>
     </div>
 </div>
+{{homeCtrl.state._secretNumber}}
 <div class="row" ng-show="homeCtrl.state">
     <div class="panel panel-info">
         <div class="panel-heading"><h3 class="panel-title">Guesses History</h3></div>
@@ -46,7 +47,7 @@
         </div>
     </div>
 </div>
-<div class="row" ng-show="homeCtrl.showStatistics">
+<div class="row" ng-if="homeCtrl.showStatistics">
     <div class="well well-lg">
         <h4>Congratulation! You won!</h4>
         <h5>Statistics:</h5>

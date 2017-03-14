@@ -6,7 +6,7 @@ export default class HomeController {
             moreThan: 0,
             lessThan: 999,
             historyGuess: [],
-            attempts: 1,
+            attempts: 0,
             timeStart: null,
             timeEnd: null,
         };
@@ -20,13 +20,14 @@ export default class HomeController {
     displayWon() {
         this.state.timeEnd = performance.now();
         this.showStatistics = true;
-        this.prevSate = Object.assign({}, this.state);
+        this.prevSate = angular.copy(this.state);
         delete this.state;
     };
 
     getPrevGameTime() {
         return parseInt(this.prevSate.timeEnd - this.prevSate.timeStart)/1000;
     }
+
     publishHistroyEvent(number) {
         this.state.historyGuess.unshift({
             badgeClass: number > this.state._secretNumber ? 'danger' : 'success',
@@ -41,18 +42,22 @@ export default class HomeController {
     }
 
     startGameHandler(e) {
+        delete this.prevSate;
+        delete this.state;
+        this.getTargetInput().val('');
         this.showStatistics = false;
-        this.state = Object.assign({}, this.defaultState);
+        this.state = angular.copy(this.defaultState);
         this.state._secretNumber = getRandomInt(0, 999);
         this.state.timeStart = performance.now();
-        delete this.prevSate;
     }
 
     submitHandler(e) {
         let currentNumber = parseInt(this.getTargetInput().val());
-        if (!currentNumber) {
+        if (!(currentNumber >= 0)) {
             return;
         }
+        this.state.attempts++;
+        this.publishHistroyEvent(currentNumber);
         if (this.state._secretNumber === currentNumber) {
             this.displayWon();
         } else {
@@ -62,7 +67,6 @@ export default class HomeController {
                 this.state.lessThan = currentNumber;
             }
         }
-        this.publishHistroyEvent(currentNumber);
-        this.state.attempts++;
+
     }
 }
